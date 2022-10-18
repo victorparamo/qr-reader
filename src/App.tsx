@@ -39,6 +39,8 @@ const App = () => {
         <div style={{ width: '250px' }} id="reader"></div>
         <h1>QR Code</h1>
         <p>{QRText}</p>
+        <p>{import.meta.env.VITE_VALIDATOR_API}</p>
+        <p>{import.meta.env.VITE_API_KEY}</p>
       </header>
     </div>
   );
