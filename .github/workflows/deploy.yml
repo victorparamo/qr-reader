@@ -25,7 +25,7 @@ jobs:
       - name: Build project
         run: yarn build
         env:
-          VITE_VALIDATOR_API: hola
+          VITE_VALIDATOR_API: ${{ secrets.VITE_VALIDATOR_API }}
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
 
       - name: Upload production-ready build files
