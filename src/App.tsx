@@ -5,8 +5,8 @@ import { Html5QrcodeScanner, Html5QrcodeScanType } from 'html5-qrcode';
 import './App.css';
 
 const App = () => {
-  console.log(import.meta.env.VITE_VALIDATOR_API);
-  console.log(import.meta.env.VITE_API_KEY);
+  // console.log(import.meta.env.VITE_VALIDATOR_API);
+  // console.log(import.meta.env.VITE_API_KEY);
 
   const [QRText, setQRText] = useState('');
   // eslint-disable-next-line
@@ -39,8 +39,6 @@ const App = () => {
         <div style={{ width: '250px' }} id="reader"></div>
         <h1>QR Code</h1>
         <p>{QRText}</p>
-        <p>{import.meta.env.VITE_VALIDATOR_API}</p>
-        <p>{import.meta.env.VITE_API_KEY}</p>
       </header>
     </div>
   );
