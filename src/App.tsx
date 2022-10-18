@@ -36,7 +36,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <div style={{ width: '500px' }} id="reader"></div>
+        <div style={{ width: '250px' }} id="reader"></div>
         <h1>QR Code</h1>
         <p>{QRText}</p>
       </header>
