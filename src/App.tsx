@@ -5,6 +5,9 @@ import { Html5QrcodeScanner, Html5QrcodeScanType } from 'html5-qrcode';
 import './App.css';
 
 const App = () => {
+  console.log(import.meta.env.VITE_VALIDATOR_API);
+  console.log(import.meta.env.VITE_API_KEY);
+
   const [QRText, setQRText] = useState('');
   // eslint-disable-next-line
   function onScanSuccess(decodedText: string, decodedResult: any) {
