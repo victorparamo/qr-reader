@@ -2,6 +2,7 @@ interface RequestObject {
   method: string;
   mode: RequestMode;
   headers: HeadersInit;
+  credencials: RequestCredentials;
   body: string;
 }
 
@@ -11,6 +12,7 @@ const validateQR = async (code: string) =>
     const initObject: RequestObject = {
       method: 'POST',
       mode: 'cors',
+      credencials: 'include',
       headers: {
         'x-api-key': import.meta.env.VITE_API_KEY as string,
       },
@@ -25,14 +27,15 @@ const validateQR = async (code: string) =>
         initObject
       );
 
-      console.log('hola', response);
+      if (response.status === 401) {
+        resolve({ error: 'Unauthorized' });
+      }
 
-      if (!response.ok && response.status !== 401) {
+      if (!response.ok) {
         reject(new Error('Error validating code'));
       }
 
       const data = await response.json();
-      console.log(data);
       resolve(data);
     } catch (e) {
       reject(e);
