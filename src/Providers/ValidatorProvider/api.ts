@@ -27,11 +27,12 @@ const validateQR = async (code: string) =>
 
       console.log('hola', response);
 
-      if (!response.ok) {
+      if (!response.ok && response.status !== 401) {
         reject(new Error('Error validating code'));
       }
 
       const data = await response.json();
+      console.log(data);
       resolve(data);
     } catch (e) {
       reject(e);
