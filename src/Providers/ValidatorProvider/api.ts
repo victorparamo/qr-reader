@@ -3,6 +3,7 @@ interface RequestObject {
   mode: RequestMode;
   headers: HeadersInit;
   body: string;
+  credentials: RequestCredentials;
 }
 
 /* eslint-disable no-async-promise-executor */
@@ -11,8 +12,10 @@ const validateQR = async (code: string) =>
     const initObject: RequestObject = {
       method: 'POST',
       mode: 'cors',
+      credentials: 'include',
       headers: {
         'x-api-key': import.meta.env.VITE_API_KEY as string,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         code,
@@ -24,6 +27,8 @@ const validateQR = async (code: string) =>
         import.meta.env.VITE_VALIDATOR_API as string,
         initObject
       );
+
+      console.log('hola', response);
 
       if (!response.ok) {
         reject(new Error('Error validating code'));
