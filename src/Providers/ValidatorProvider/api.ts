@@ -13,7 +13,6 @@ const validateQR = async (code: string) =>
       mode: 'cors',
       headers: {
         'x-api-key': import.meta.env.VITE_API_KEY as string,
-        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         code,
