@@ -1,3 +1,8 @@
+import {
+  QRValidatorError,
+  QRData,
+} from '../../Providers/ValidatorProvider/types';
+
 interface RequestObject {
   method: string;
   mode: RequestMode;
@@ -7,7 +12,7 @@ interface RequestObject {
 }
 
 /* eslint-disable no-async-promise-executor */
-const validateQR = async (code: string) =>
+const validateQR = async (code: string): Promise<QRData | QRValidatorError> =>
   new Promise(async (resolve, reject) => {
     const initObject: RequestObject = {
       method: 'POST',
@@ -28,7 +33,7 @@ const validateQR = async (code: string) =>
       );
 
       if (response.status === 401) {
-        resolve({ error: 'Unauthorized' });
+        resolve({ error: 'Unauthorized', status: 'error' });
       }
 
       if (!response.ok) {
@@ -36,7 +41,7 @@ const validateQR = async (code: string) =>
       }
 
       const data = await response.json();
-      resolve(data);
+      resolve({ ...data, status: 'validated' });
     } catch (e) {
       reject(e);
     }

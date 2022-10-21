@@ -1,21 +1,9 @@
-import {
-  useState,
-  useContext,
-  createContext,
-  ReactNode,
-  useEffect,
-  useRef,
-} from 'react';
+import { useState, useContext, createContext, useEffect, useRef } from 'react';
 
 import { Html5QrcodeScanner, Html5QrcodeScanType } from 'html5-qrcode';
 
 import validateQR from './api';
-
-interface QRValidator {
-  QRText?: string;
-  scanning?: boolean;
-  handleButtonClick?: () => void;
-}
+import { QRValidator, QRValidatorProviderProps, QRData } from './types';
 
 const QRValidatorContext = createContext<QRValidator>({});
 
@@ -25,21 +13,22 @@ function useQRValidator(): QRValidator {
   return context;
 }
 
-interface QRValidatorProviderProps {
-  children: ReactNode;
-}
-
 function QRValidatorProvider({ children }: QRValidatorProviderProps) {
   const scanner = useRef<any>(null);
   const [QRText, setQRText] = useState('');
   const [scanning, setScanning] = useState(false);
+  const [QRData, setQRData] = useState<QRData | null>(null);
 
-  function onScanSuccess(decodedText: string, decodedResult: any) {
-    console.log(`Scan result: ${decodedText}`, decodedResult);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async function onScanSuccess(decodedText: string, decodedResult: any) {
     setQRText(decodedText);
-    validateQR(decodedText);
-    scanner.current.clear();
     setScanning(false);
+    const qrResponse = await validateQR(decodedText);
+    scanner.current.clear();
+
+    if (qrResponse.status === 'validated') {
+      setQRData(qrResponse as QRData);
+    }
   }
 
   function onScanError() {
@@ -54,6 +43,7 @@ function QRValidatorProvider({ children }: QRValidatorProviderProps) {
   function handleButtonClick() {
     if (QRText) {
       setQRText('');
+      setQRData(null);
     }
     onStartScanning();
   }
@@ -76,6 +66,7 @@ function QRValidatorProvider({ children }: QRValidatorProviderProps) {
     QRText,
     scanning,
     handleButtonClick,
+    data: QRData,
   };
 
   return (

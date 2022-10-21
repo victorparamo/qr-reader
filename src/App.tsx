@@ -1,20 +1,23 @@
+import styled from '@emotion/styled';
+
 import AppComponent from './components/App';
 import QRValidatorProvider from './Providers/ValidatorProvider';
-import './App.css';
 
-const App = () => {
-  // console.log(import.meta.env.VITE_VALIDATOR_API);
-  // console.log(import.meta.env.VITE_API_KEY);
+const StyledApp = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+`;
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <QRValidatorProvider>
-          <AppComponent />
-        </QRValidatorProvider>
-      </header>
-    </div>
-  );
-};
+const App = () => (
+  <StyledApp>
+    <QRValidatorProvider>
+      <AppComponent />
+    </QRValidatorProvider>
+  </StyledApp>
+);
 
 export default App;
