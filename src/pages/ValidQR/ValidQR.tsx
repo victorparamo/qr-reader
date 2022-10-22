@@ -5,7 +5,7 @@ import { useQRValidator } from '../../Providers/ValidatorProvider/ValidatorProvi
 import SuccessAlert from './styles';
 
 const ValidQR = (): JSX.Element => {
-  const { QRText, data } = useQRValidator();
+  const { QRText } = useQRValidator();
 
   return (
     <>
@@ -15,7 +15,7 @@ const ValidQR = (): JSX.Element => {
       <Typography variant="body1" gutterBottom>
         {QRText}
       </Typography>
-      {data ? <SuccessAlert severity="success">QR Valido!</SuccessAlert> : null}
+      <SuccessAlert severity="success">QR Valido!</SuccessAlert>
     </>
   );
 };

@@ -9,10 +9,12 @@ export interface QRData {
 }
 
 export interface QRValidator {
-  QRText?: string;
-  scanning?: boolean;
-  handleButtonClick?: () => void;
-  data?: QRData | null;
+  QRText: string;
+  scanning: boolean;
+  handleButtonClick: () => void;
+  data: QRData | null;
+  error: boolean;
+  loading: boolean;
 }
 
 export interface QRValidatorProviderProps {
