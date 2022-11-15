@@ -12,7 +12,7 @@ declare module '@emotion/react' {
 
 let theme = createTheme({
   palette: {
-    mode: 'dark',
+    // mode: 'dark',
     primary: {
       main: '#3fb5a8',
     },

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import StyledButton from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { styled as materialStyled } from '@mui/material/styles';
 
@@ -23,6 +24,10 @@ export const Card = materialStyled(Paper)(({ theme }) => ({
   height: '50vh',
   width: '30vw',
   lineHeight: '60px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
 
   [theme.breakpoints.down('lg')]: {
     height: '50vh',
@@ -39,3 +44,7 @@ export const Card = materialStyled(Paper)(({ theme }) => ({
     width: '90vw',
   },
 }));
+
+export const Button = styled(StyledButton)`
+  width: 70%;
+`;
