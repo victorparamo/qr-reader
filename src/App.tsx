@@ -1,25 +1,8 @@
 import Box from '@mui/material/Box';
-import {
-  createTheme,
-  ThemeProvider,
-  responsiveFontSizes,
-} from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
-import AppComponent from './components/App';
-import QRValidatorProvider from './Providers/ValidatorProvider';
-
-let theme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#3fb5a8',
-    },
-    secondary: {
-      main: '#f5c400',
-    },
-  },
-});
-theme = responsiveFontSizes(theme);
+import AppComponent from 'components/App';
+import theme from 'theme';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -36,9 +19,7 @@ const App = () => (
         borderRadius: 1,
       }}
     >
-      <QRValidatorProvider>
-        <AppComponent />
-      </QRValidatorProvider>
+      <AppComponent />
     </Box>
   </ThemeProvider>
 );
