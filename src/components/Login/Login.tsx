@@ -1,45 +1,45 @@
-import { ChangeEvent, MouseEvent, useState } from 'react';
-
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import TextField from '@mui/material/TextField';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Typography from '@mui/material/Typography';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+
+import { EMAIL_REGEXP, EmailField } from 'components/EmailField';
+import PasswordField from 'components/PasswordField';
 
 import { Container, Card, Button } from './styles';
 
-interface State {
+export interface FormData {
   email: string;
   password: string;
-  showPassword: boolean;
 }
 
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .required('El email es requerido.')
+      .test('email', 'El formato del email es incorrecto', (value = '') =>
+        Boolean(value.match(EMAIL_REGEXP))
+      ),
+    password: yup.string().required('El password es requerido.'),
+  })
+  .required();
+
 const Login = (): JSX.Element => {
-  const [state, setState] = useState<State>(() => ({
-    email: '',
-    password: '',
-    showPassword: false,
-  }));
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: yupResolver(schema),
+    mode: 'onBlur',
+  });
 
-  const handleChange =
-    (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-      setState({ ...state, [prop]: event.target.value });
-    };
-
-  const handleClickShowPassword = () => {
-    setState({
-      ...state,
-      showPassword: !state.showPassword,
-    });
-  };
-
-  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  const onSubmit = () => console.log('submit');
 
   return (
     <Container>
@@ -48,36 +48,18 @@ const Login = (): JSX.Element => {
           Iniciar sesión
         </Typography>
         <Typography gutterBottom>Ingresa tus credenciales</Typography>
-        <TextField
-          label="Email"
-          id="outlined-start-adornment"
-          sx={{ mt: 8, mb: 2, width: '70%' }}
+        <EmailField
+          error={errors.email?.message || ''}
+          name="email"
+          control={control}
         />
-        <FormControl sx={{ mb: 8, width: '70%' }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Contraseña
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={state.showPassword ? 'text' : 'password'}
-            value={state.password}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {state.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-        <Button variant="contained" fullWidth>
+        <PasswordField
+          error={errors.password?.message || ''}
+          name="password"
+          control={control}
+        />
+
+        <Button variant="contained" fullWidth onClick={handleSubmit(onSubmit)}>
           Iniciar sesion
         </Button>
       </Card>
