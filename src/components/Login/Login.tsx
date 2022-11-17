@@ -84,7 +84,7 @@ const Login = (): JSX.Element => {
           Iniciar sesion
         </Button>
       </Card>
-      {userData && <Alert severity="success">Usuario Valido</Alert>}
+      {userData && <Alert severity="success">¡Bienvenido!</Alert>}
       {error && (
         <Alert severity="error" onClose={handleCloseError}>
           Usuario No Valido
