@@ -1,7 +1,13 @@
 import styled from '@emotion/styled';
-import StyledButton from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
+import MaterialAlert from '@mui/material/Alert';
 import Paper from '@mui/material/Paper';
 import { styled as materialStyled } from '@mui/material/styles';
+
+export const Alert = styled(MaterialAlert)`
+  position: absolute;
+  top: 40px;
+`;
 
 export const Container = styled.div`
   width: 100vw;
@@ -45,6 +51,6 @@ export const Card = materialStyled(Paper)(({ theme }) => ({
   },
 }));
 
-export const Button = styled(StyledButton)`
+export const Button = styled(LoadingButton)`
   width: 70%;
 `;

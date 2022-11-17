@@ -26,7 +26,7 @@ export function EmailField<T>({
           error={Boolean(error)}
           helperText={error}
           id="outlined-start-adornment"
-          sx={{ mt: 8, mb: 2, width: '70%' }}
+          sx={{ mt: 5, mb: 2, width: '70%' }}
           value={field.value}
           onChange={field.onChange}
           onBlur={field.onBlur}

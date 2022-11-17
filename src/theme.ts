@@ -3,6 +3,7 @@ import {
   responsiveFontSizes,
   Theme as MuiTheme,
 } from '@mui/material/styles';
+import type {} from '@mui/lab/themeAugmentation';
 
 declare module '@emotion/react' {
   export interface Theme extends MuiTheme {
