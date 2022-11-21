@@ -1,16 +1,14 @@
-import Login from 'components/Login';
+// import Login from 'components/Login';
+import ScanPage from 'components/ScanPage';
+import QRValidatorProvider from 'Providers/ValidatorProvider';
 
 const App = (): JSX.Element => {
-  // function handleInput(event: any) {
-  //   setInputVal(event.target.value);
-  // }
-
-  return <Login />;
-  // return (
-  //   <QRValidatorProvider>
-  //     <ScanPage />
-  //   </QRValidatorProvider>
-  // );
+  // return <Login />;
+  return (
+    <QRValidatorProvider>
+      <ScanPage />
+    </QRValidatorProvider>
+  );
 };
 
 export default App;
