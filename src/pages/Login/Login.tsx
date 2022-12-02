@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import Typography from '@mui/material/Typography';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormSetError } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import passwordLogin from 'api/passwordLogin';
@@ -26,13 +27,15 @@ const schema = yup
 
 const Login = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [userData, setUserData] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const {
     control,
     handleSubmit,
     formState: { errors, isValid },
+    setError: setFieldError,
   } = useForm<FormData>({
     defaultValues: {
       email: '',
@@ -42,17 +45,24 @@ const Login = (): JSX.Element => {
     mode: 'onBlur',
   });
 
-  const onSubmit = async (): Promise<void> => {
-    setLoading(true);
-    try {
-      await passwordLogin();
-      setLoading(false);
-      setUserData(true);
-    } catch (e: any) {
-      setLoading(false);
-      setError(true);
-    }
-  };
+  const onSubmit =
+    (setFieldError: UseFormSetError<FormData>) =>
+    async (formValues: FormData): Promise<void> => {
+      setLoading(true);
+      try {
+        await passwordLogin(formValues);
+        setLoading(false);
+        navigate('../dashboard');
+      } catch (e: any) {
+        setLoading(false);
+        setError(true);
+        setFieldError(
+          'password',
+          { message: 'Intenta una vez mas' },
+          { shouldFocus: true }
+        );
+      }
+    };
 
   const handleCloseError = (): void => setError(false);
 
@@ -79,12 +89,11 @@ const Login = (): JSX.Element => {
           variant="contained"
           loading={loading}
           fullWidth
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSubmit(setFieldError))}
         >
           Iniciar sesion
         </Button>
       </Card>
-      {userData && <Alert severity="success">¡Bienvenido!</Alert>}
       {error && (
         <Alert severity="error" onClose={handleCloseError}>
           Usuario No Valido

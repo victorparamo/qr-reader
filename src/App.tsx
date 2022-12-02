@@ -1,7 +1,8 @@
 import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
+import { BrowserRouter } from 'react-router-dom';
 
-import AppComponent from 'components/App';
+import Router from 'components/Router';
 import theme from 'theme';
 
 const App = () => (
@@ -19,7 +20,9 @@ const App = () => (
         borderRadius: 1,
       }}
     >
-      <AppComponent />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </Box>
   </ThemeProvider>
 );
