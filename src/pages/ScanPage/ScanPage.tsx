@@ -1,4 +1,6 @@
 // import { useState } from 'react';
+
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -17,7 +19,15 @@ const ScanPage = (): JSX.Element => {
   // }
 
   return (
-    <>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        flexDirection: 'column',
+      }}
+    >
       {/* <input type="text" value={inputVal} onChange={handleInput} /> */}
       {loading ? <CircularProgress /> : null}
       {data && !error ? <ValidQR /> : null}
@@ -31,7 +41,7 @@ const ScanPage = (): JSX.Element => {
         </>
       ) : null}
       <div style={{ width: '250px' }} id="reader"></div>
-    </>
+    </Box>
   );
 };
 
