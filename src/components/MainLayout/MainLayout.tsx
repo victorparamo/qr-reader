@@ -49,48 +49,59 @@ const MainLayout = (props: MainLayoutProps): JSX.Element => {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
-    <div>
-      <Toolbar>
-        <Typography variant="h6" noWrap component="div">
-          Easy Events
-        </Typography>
-      </Toolbar>
-      <Divider />
-      <List>
-        {drawerElements.map(({ name, route, icon }) => (
-          <ListItem key={name} disablePadding>
-            <NavLink
-              to={route}
-              style={({ isActive }) =>
-                isActive ? activeLinkStyles : linkStyles
-              }
-            >
-              {({ isActive }) => (
-                <ListItemButton selected={isActive}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText primary={name} />
-                </ListItemButton>
-              )}
-            </NavLink>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['Cerrar Sesión'].map((text) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <Logout />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
+  const drawer = (onClose?: () => void) => {
+    let navLinkProps = {};
+
+    if (onClose) {
+      navLinkProps = {
+        onClick: onClose,
+      };
+    }
+
+    return (
+      <div>
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            Easy Events
+          </Typography>
+        </Toolbar>
+        <Divider />
+        <List>
+          {drawerElements.map(({ name, route, icon }) => (
+            <ListItem key={name} disablePadding>
+              <NavLink
+                to={route}
+                style={({ isActive }) =>
+                  isActive ? activeLinkStyles : linkStyles
+                }
+                {...navLinkProps}
+              >
+                {({ isActive }) => (
+                  <ListItemButton selected={isActive}>
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText primary={name} />
+                  </ListItemButton>
+                )}
+              </NavLink>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Cerrar Sesión'].map((text) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Logout />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </div>
+    );
+  };
 
   // const container =
   //   window !== undefined ? () => window().document.body : undefined;
@@ -140,7 +151,7 @@ const MainLayout = (props: MainLayoutProps): JSX.Element => {
             },
           }}
         >
-          {drawer}
+          {drawer(handleDrawerToggle)}
         </Drawer>
         <Drawer
           variant="permanent"
@@ -153,7 +164,7 @@ const MainLayout = (props: MainLayoutProps): JSX.Element => {
           }}
           open
         >
-          {drawer}
+          {drawer()}
         </Drawer>
       </Box>
       <Box

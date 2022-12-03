@@ -19,6 +19,7 @@ export interface EventData {
   name: string;
   date: Date;
   guests: number;
+  id: string;
 }
 
 const Dashboard = (): JSX.Element => {
