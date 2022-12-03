@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Event from '@mui/icons-material/Event';
 import EventRepeat from '@mui/icons-material/EventRepeat';
 import HelpIcon from '@mui/icons-material/Help';
@@ -36,6 +38,14 @@ const drawerElements: Array<DrawerElements> = [
 ];
 
 const DashboardRouter = (): JSX.Element => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, []);
+
   return (
     <MainLayout title="Panel de eventos" drawerElements={drawerElements}>
       <Routes>
