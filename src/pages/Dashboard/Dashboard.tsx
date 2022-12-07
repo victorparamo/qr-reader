@@ -12,6 +12,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import format from 'date-fns/format';
+import { useNavigate } from 'react-router-dom';
 
 import getEvents from 'api/getEvents';
 
@@ -25,6 +26,7 @@ export interface EventData {
 const Dashboard = (): JSX.Element => {
   const [rows, setRows] = useState<Array<EventData>>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -88,7 +90,9 @@ const Dashboard = (): JSX.Element => {
                   {row.guests}
                 </TableCell>
                 <TableCell align="center" sx={{ width: 70 }}>
-                  <Button>Editar</Button>
+                  <Button onClick={() => navigate(`./${row.id}`)}>
+                    Editar
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
