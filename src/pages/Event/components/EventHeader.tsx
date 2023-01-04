@@ -8,14 +8,14 @@ import SaveIcon from '@mui/icons-material/Save';
 import Typography from '@mui/material/Typography';
 
 const EventHeader = (props: any): JSX.Element => {
-  const { navigate, event, hiddenFileInput, setGuestListFromFile, setIsDataChanged, isDataChanged } = props;
+  const { navigate, dataFromCloud, hiddenFileInput, setDataFromFile, setIsDataChanged, isDataChanged } = props;
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', mb: 5 }}>
       <ArrowBackIosNewIcon
         onClick={() => navigate('..')}
         sx={{ mr: 2, cursor: 'pointer' }}
       />
-      <Typography variant="h4">{event.name}</Typography>
+      <Typography variant="h4">{dataFromCloud.name}</Typography>
       <Box sx={{ marginLeft: 'auto' }}>
         <Button
           variant="contained"
@@ -32,7 +32,7 @@ const EventHeader = (props: any): JSX.Element => {
         <input
           type="file"
           ref={hiddenFileInput}
-          onChange={(e) => handleFileChange(e, setGuestListFromFile, setIsDataChanged)}
+          onChange={(e) => handleFileChange(e, setDataFromFile, setIsDataChanged)}
           style={{ display: 'none' }}
         />
         <Button
