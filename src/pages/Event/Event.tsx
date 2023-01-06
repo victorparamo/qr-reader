@@ -1,22 +1,21 @@
-import { useState, useEffect } from 'react';
-
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
+/* eslint-disable */
+import { useState, useEffect, useRef } from 'react';
+import Loading from './components/Loading';
+import EventHeader from './components/EventHeader';
 import { useNavigate } from 'react-router-dom';
 
 import getEvent, { EventResponse } from 'api/getEvent';
+import EventTable from './components/EventTable';
 
 const Event = (): JSX.Element => {
-  const [event, setEvent] = useState<EventResponse>({
+  const [dataFromCloud, setDataFromCloud] = useState<EventResponse>({
+    name: '',
+    guests: [],
+    guestsNumber: 0,
+    date: new Date(),
+    id: '',
+  });
+  const [tableData, setTableData] = useState<EventResponse>({
     name: '',
     guests: [],
     guestsNumber: 0,
@@ -24,58 +23,38 @@ const Event = (): JSX.Element => {
     id: '',
   });
   const [loading, setLoading] = useState<boolean>(true);
+  const [isDataChanged, setIsDataChanged] = useState<boolean>(false);
   const navigate = useNavigate();
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setLoading(true);
     async function fetchEvent() {
       const { ...event } = await getEvent();
-      setEvent(event);
+      setDataFromCloud(event);
+      setTableData(event);
       setLoading(false);
     }
-
     fetchEvent();
   }, []);
 
   return loading ? (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-      <CircularProgress />
-    </Box>
+    <Loading />
   ) : (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 5 }}>
-        <ArrowBackIosNewIcon
-          onClick={() => navigate('..')}
-          sx={{ mr: 2, cursor: 'pointer' }}
-        />
-        <Typography variant="h4">{event.name}</Typography>
-      </Box>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 300 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Nombre invitado</TableCell>
-              <TableCell align="center">Lugares</TableCell>
-              <TableCell align="center">Mesa</TableCell>
-              {/* <TableCell>Acciones</TableCell> */}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {event.guests.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="center">{row.guests}</TableCell>
-                <TableCell align="center">{row.table}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <EventHeader
+        navigate={navigate}
+        dataFromCloud={dataFromCloud}
+        hiddenFileInput={hiddenFileInput}
+        setIsDataChanged={setIsDataChanged}
+        setTableData={setTableData}
+        tableData={tableData}
+        isDataChanged={isDataChanged}
+      />
+      <EventTable
+        tableData={tableData}
+        setTableData={setTableData}
+      />
     </>
   );
 };
