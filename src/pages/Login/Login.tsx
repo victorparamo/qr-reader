@@ -52,7 +52,7 @@ const Login = (): JSX.Element => {
       try {
         await passwordLogin(formValues);
         setLoading(false);
-        navigate('../dashboard');
+        navigate('../events');
       } catch (e: any) {
         setLoading(false);
         setError(true);
