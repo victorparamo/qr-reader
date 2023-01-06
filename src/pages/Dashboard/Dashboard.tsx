@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -15,31 +13,23 @@ import format from 'date-fns/format';
 import { useNavigate } from 'react-router-dom';
 
 import getEvents from 'api/getEvents';
+import useAsyncRequest from 'hooks/useAsyncRequest';
 
 export interface EventData {
-  name: string;
-  date: Date;
-  guests: number;
-  id: string;
+  Name: string;
+  Date: Date;
+  GuestsNum: number;
+  Id: string;
 }
 
 const Dashboard = (): JSX.Element => {
-  const [rows, setRows] = useState<Array<EventData>>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setLoading(true);
-    async function fetchEvents() {
-      const { events } = await getEvents();
-      setRows(events);
-      setLoading(false);
-    }
+  const { data, isLoading } = useAsyncRequest(getEvents, { eager: true });
 
-    fetchEvents();
-  }, []);
+  const events = data?.Events || [];
 
-  return loading ? (
+  return isLoading ? (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <CircularProgress />
     </Box>
@@ -69,28 +59,28 @@ const Dashboard = (): JSX.Element => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {events.map((row) => (
               <TableRow
-                key={row.name}
+                key={row.Name}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.Name}
                 </TableCell>
                 <TableCell
                   align="center"
                   sx={{ display: { xs: 'none', md: 'table-cell' } }}
                 >
-                  {format(row.date, 'dd/MM/yyyy')}
+                  {format(new Date(row.Date), 'dd/MM/yyyy')}
                 </TableCell>
                 <TableCell
                   align="center"
                   sx={{ display: { xs: 'none', sm: 'table-cell' } }}
                 >
-                  {row.guests}
+                  {row.GuestsNum}
                 </TableCell>
                 <TableCell align="center" sx={{ width: 70 }}>
-                  <Button onClick={() => navigate(`./${row.id}`)}>
+                  <Button onClick={() => navigate(`./${row.Id}`)}>
                     Editar
                   </Button>
                 </TableCell>

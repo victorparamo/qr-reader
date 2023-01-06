@@ -1,27 +1,27 @@
 import { EventData } from 'pages/Dashboard/Dashboard';
 
-function createData({ name, date, guests, id }: EventData) {
-  return { name, date, guests, id };
+function createData({ Name, Date, GuestsNum, Id }: EventData) {
+  return { Name, Date, GuestsNum, Id };
 }
 
 const events = [
   createData({
-    name: 'Boda Julio y Vianey',
-    date: new Date(2023, 2, 28),
-    guests: 150,
-    id: 'cdcdkcdcdcmd',
+    Name: 'Boda Julio y Vianey',
+    Date: new Date(2023, 2, 28),
+    GuestsNum: 150,
+    Id: 'cdcdkcdcdcmd',
   }),
   createData({
-    name: 'Graduacion TEC ISD',
-    date: new Date(2022, 12, 20),
-    guests: 500,
-    id: 'cdcdkcdcdcmd',
+    Name: 'Graduacion TEC ISD',
+    Date: new Date(2022, 12, 20),
+    GuestsNum: 500,
+    Id: 'cdcdkcdcdcmd',
   }),
   createData({
-    name: 'Boda Carlos y Ana',
-    date: new Date(2023, 3, 5),
-    guests: 200,
-    id: 'cdcdkcdcdcmd',
+    Name: 'Boda Carlos y Ana',
+    Date: new Date(2023, 3, 5),
+    GuestsNum: 200,
+    Id: 'cdcdkcdcdcmd',
   }),
 ];
 
