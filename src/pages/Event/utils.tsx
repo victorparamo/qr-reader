@@ -1,8 +1,28 @@
 /* eslint-disable */
-import * as XLSX from 'xlsx/xlsx.mjs';
+import * as XLSX from 'xlsx';
+
+const convertListToEvent = (guestList: any, tableData: any, setTableData: any) => {
+  const newEvent = { ...tableData };
+  const array = [];
+  const numGuests = guestList.length;
+  for (const guest of guestList) {
+    array.push({
+      name: guest[0],
+      table: guest[1],
+      guests: guest[2],
+    })
+  }
+  newEvent.guests = array;
+  newEvent.guestsNumber = numGuests;
+  setTableData(newEvent)
+}
+
+const showFileSubmissionModal = (fileData: any[]) => {
+  return false;
+}
 
 
-export const handleFileChange = (e: any, setGuestList: any, setIsDataChanged: any) => {
+export const handleFileChange = (e: any, tableData: any, setTableData: any, setIsDataChanged: any) => {
   const file = e.target.files[0];
   const reader = new FileReader();
 
@@ -15,18 +35,19 @@ export const handleFileChange = (e: any, setGuestList: any, setIsDataChanged: an
     const fileData = XLSX.utils.sheet_to_json(workSheet, { header: 1 });
     //const headers = fileData[0];
     fileData.splice(0, 1);
-    setGuestList(fileData);
-    console.log('Data', fileData);
+    if (showFileSubmissionModal(fileData)) {
+      convertListToEvent(fileData, tableData, setTableData);
+    }
   };
 
   reader.readAsBinaryString(file);
   setIsDataChanged(true);
 };
 
-export const handleSaveFileChanges = (setIsDataChanged: any) => {
+export const handleSaveFileChanges = (tableData: any, setIsDataChanged: any) => {
   /* Add Logic for POST request */
-  console.log('Mocking POST request...')
-
+  console.log('Mocking POST request...');
+  console.log(tableData);
   setIsDataChanged(false);
 };
 

@@ -90,7 +90,10 @@ const Dashboard = (): JSX.Element => {
                   {row.guests}
                 </TableCell>
                 <TableCell align="center" sx={{ width: 70 }}>
-                  <Button onClick={() => navigate(`./${row.id}`)}>
+                  <Button
+                    onClick={() => navigate(`./${row.id}`)}
+                    variant="outlined"
+                  >
                     Editar
                   </Button>
                 </TableCell>
