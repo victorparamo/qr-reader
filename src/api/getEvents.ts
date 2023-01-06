@@ -1,45 +1,35 @@
+/* eslint-disable no-async-promise-executor */
 import { EventData } from 'pages/Dashboard/Dashboard';
 
-import events from './mocks/mockGetEvents';
-
 interface EventsResponse {
-  events: Array<EventData>;
+  Events: Array<EventData>;
 }
 
-/* eslint-disable no-async-promise-executor */
 const getEvents = async (): Promise<EventsResponse> =>
   new Promise(async (resolve, reject) => {
-    // const initObject = {
-    //   method: 'GET',
-    //   mode: 'cors',
-    // };
+    const initObject: EasyEventsGlobals.GetRequestObject = {
+      method: 'GET',
+      mode: 'cors',
+      credencials: 'include',
+      headers: {
+        'x-api-key': import.meta.env.VITE_API_KEY as string,
+        // TODO: Connect with context
+        email: 'easy-events@test.com',
+      },
+    };
 
     try {
-      setTimeout(() => {
-        resolve({ events });
-      }, 3000);
-      // const responseWithHash = await fetch(
-      //   'https://blockchain.info/latestblock?cors=true',
-      //   initObject
-      // );
+      const response = await fetch(
+        `${import.meta.env.VITE_VALIDATOR_API as string}/events`,
+        initObject
+      );
 
-      // if (!responseWithHash.ok) {
-      //   reject(new Error('Error getting hash'));
-      // }
+      if (!response.ok) {
+        reject(new Error('Error getting hash'));
+      }
 
-      // const { hash } = await responseWithHash.json();
-
-      // const response = await fetch(
-      //   `https://blockchain.info/rawblock/${hash}?cors=true`,
-      //   initObject
-      // );
-
-      // if (!response.ok) {
-      //   reject(new Error('Error getting data'));
-      // }
-
-      // const data = await response.json();
-      // resolve(data);
+      const data = await response.json();
+      resolve(data);
     } catch (e) {
       reject(e);
     }
