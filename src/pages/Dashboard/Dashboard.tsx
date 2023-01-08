@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';

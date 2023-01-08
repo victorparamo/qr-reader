@@ -2,8 +2,8 @@ import { useState, CSSProperties } from 'react';
 
 import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Box } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import { handleFileChange, handleSaveFileChanges, handleButtonClick } from '../utils';
 import SaveIcon from '@mui/icons-material/Save';

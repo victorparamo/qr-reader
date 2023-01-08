@@ -1,4 +1,4 @@
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 
