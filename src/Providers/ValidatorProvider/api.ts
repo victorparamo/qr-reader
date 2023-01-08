@@ -1,20 +1,9 @@
-import {
-  QRValidatorError,
-  QRData,
-} from '../../Providers/ValidatorProvider/types';
-
-interface RequestObject {
-  method: string;
-  mode: RequestMode;
-  headers: HeadersInit;
-  credencials: RequestCredentials;
-  body: string;
-}
-
 /* eslint-disable no-async-promise-executor */
+import { QRValidatorError, QRData } from 'Providers/ValidatorProvider/types';
+
 const validateQR = async (code: string): Promise<QRData | QRValidatorError> =>
   new Promise(async (resolve, reject) => {
-    const initObject: RequestObject = {
+    const initObject: EasyEventsGlobals.PostRequestObject = {
       method: 'POST',
       mode: 'cors',
       credencials: 'include',
@@ -28,7 +17,7 @@ const validateQR = async (code: string): Promise<QRData | QRValidatorError> =>
 
     try {
       const response = await fetch(
-        import.meta.env.VITE_VALIDATOR_API as string,
+        `${import.meta.env.VITE_VALIDATOR_API as string}/qr-validator-api`,
         initObject
       );
 

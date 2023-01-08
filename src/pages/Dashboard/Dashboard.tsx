@@ -15,13 +15,6 @@ import { useNavigate } from 'react-router-dom';
 import getEvents from 'api/getEvents';
 import useAsyncRequest from 'hooks/useAsyncRequest';
 
-export interface EventData {
-  Name: string;
-  Date: Date;
-  GuestsNum: number;
-  Id: string;
-}
-
 const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
 
