@@ -1,14 +1,14 @@
 /* eslint-disable */
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import AddIcon from '@mui/icons-material/Add';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
-import { handleFileChange, handleSaveFileChanges, handleButtonClick } from '../utils';
-import SaveIcon from '@mui/icons-material/Save';
+import { handleFileChange, handleButtonClick } from '../utils';
 import Typography from '@mui/material/Typography';
 
 const EventHeader = (props: any): JSX.Element => {
-  const { navigate, dataFromCloud, hiddenFileInput, setIsDataChanged, setTableData, tableData, isDataChanged } = props;
+  const { navigate, dataFromCloud, hiddenFileInput, setDisplaySaveModal, setFileData } = props;
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
       <ArrowBackIosNewIcon
@@ -32,7 +32,7 @@ const EventHeader = (props: any): JSX.Element => {
         <input
           type="file"
           ref={hiddenFileInput}
-          onChange={(e) => handleFileChange(e, tableData, setTableData, setIsDataChanged)}
+          onChange={(e) => handleFileChange(e, setDisplaySaveModal, setFileData)}
           style={{ display: 'none' }}
         />
         <Button
@@ -44,15 +44,13 @@ const EventHeader = (props: any): JSX.Element => {
               backgroundColor: 'rgb(35,123,188)'
             }
           }}
-          onClick={() => { handleSaveFileChanges(tableData, setIsDataChanged) }}
-          disabled={!isDataChanged}
         >
-          <SaveIcon
+          <AddIcon
             sx={{
               mr: 1
             }}
           />
-          Guardar Cambios
+          Añadir nuevo invitado
         </Button>
       </Box>
     </Box>

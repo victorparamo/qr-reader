@@ -1,4 +1,6 @@
 /* eslint-disable */
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { Box } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
@@ -93,7 +95,6 @@ const EventTable = (props: any): JSX.Element => {
   };
 
   const filterTableData = (tableData: any[]) => {
-    console.log('tableData', tableData);
     return tableData.filter((row: any) => {
       return Object.values(row).some(s => ("" + s).toLowerCase().includes(("" + filterKey).toLowerCase()));
     });
@@ -144,6 +145,21 @@ const EventTable = (props: any): JSX.Element => {
                 }}
               >
                 Nombre invitado
+                {isNameSorted ?
+                  <ArrowDropDownIcon
+                    sx={{
+                      ml: 2,
+                      transform: 'translate(0, 4px)'
+                    }}
+                  /> :
+                  <ArrowDropUpIcon
+                    sx={{
+                      ml: 2,
+                      transform: 'translate(0, 4px)'
+                    }}
+                  />
+
+                }
               </TableCell>
               <TableCell
                 align="center"
@@ -156,6 +172,21 @@ const EventTable = (props: any): JSX.Element => {
                 }}
               >
                 Lugares
+                {isGuestsSorted ?
+                  <ArrowDropDownIcon
+                    sx={{
+                      ml: 2,
+                      transform: 'translate(0, 4px)'
+                    }}
+                  /> :
+                  <ArrowDropUpIcon
+                    sx={{
+                      ml: 2,
+                      transform: 'translate(0, 4px)'
+                    }}
+                  />
+
+                }
               </TableCell>
               <TableCell
                 align="center"
@@ -168,6 +199,21 @@ const EventTable = (props: any): JSX.Element => {
                 }}
               >
                 Mesa
+                {isGuestTableSorted ?
+                  <ArrowDropDownIcon
+                    sx={{
+                      ml: 2,
+                      transform: 'translate(0, 4px)'
+                    }}
+                  /> :
+                  <ArrowDropUpIcon
+                    sx={{
+                      ml: 2,
+                      transform: 'translate(0, 4px)'
+                    }}
+                  />
+
+                }
               </TableCell>
               {/* <TableCell>Acciones</TableCell> */}
             </TableRow>

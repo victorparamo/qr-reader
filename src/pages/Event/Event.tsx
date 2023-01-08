@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import getEvent, { EventResponse } from 'api/getEvent';
 import EventTable from './components/EventTable';
+import ConfirmSaveModal from './components/ConfirmSaveModal';
 
 const Event = (): JSX.Element => {
   const [dataFromCloud, setDataFromCloud] = useState<EventResponse>({
@@ -23,7 +24,8 @@ const Event = (): JSX.Element => {
     id: '',
   });
   const [loading, setLoading] = useState<boolean>(true);
-  const [isDataChanged, setIsDataChanged] = useState<boolean>(false);
+  const [fileData, setFileData] = useState<any>();
+  const [displaySaveModal, setDisplaySaveModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
 
@@ -46,11 +48,16 @@ const Event = (): JSX.Element => {
         navigate={navigate}
         dataFromCloud={dataFromCloud}
         hiddenFileInput={hiddenFileInput}
-        setIsDataChanged={setIsDataChanged}
-        setTableData={setTableData}
-        tableData={tableData}
-        isDataChanged={isDataChanged}
+        setDisplaySaveModal={setDisplaySaveModal}
+        setFileData={setFileData}
       />
+      <ConfirmSaveModal
+        displayModal={displaySaveModal}
+        setDisplaySaveModal={setDisplaySaveModal}
+        hiddenFileInput={hiddenFileInput}
+        guestList={fileData}
+        tableData={tableData}
+        setTableData={setTableData} />
       <EventTable
         tableData={tableData}
         setTableData={setTableData}

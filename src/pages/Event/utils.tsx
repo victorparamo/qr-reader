@@ -1,10 +1,10 @@
 /* eslint-disable */
 import * as XLSX from 'xlsx';
 
-const convertListToEvent = (guestList: any, tableData: any, setTableData: any) => {
+export const convertListToEvent = (guestList: any, tableData: any, setTableData: any) => {
   const newEvent = { ...tableData };
   const array = [];
-  const numGuests = guestList.length;
+  const numGuests = guestList.length; // TODO: CAMBIAR A CALCULATEGUESTS()
   for (const guest of guestList) {
     array.push({
       name: guest[0],
@@ -14,18 +14,12 @@ const convertListToEvent = (guestList: any, tableData: any, setTableData: any) =
   }
   newEvent.guests = array;
   newEvent.guestsNumber = numGuests;
-  setTableData(newEvent)
+  handleSaveFileChanges(newEvent, setTableData);
 }
 
-const showFileSubmissionModal = (fileData: any[]) => {
-  return false;
-}
-
-
-export const handleFileChange = (e: any, tableData: any, setTableData: any, setIsDataChanged: any) => {
+export const handleFileChange = (e: any, setDisplaySaveModal: any, setFileData: any) => {
   const file = e.target.files[0];
   const reader = new FileReader();
-
   reader.onload = (event) => {
     const bstr = event?.target?.result;
     const workBook = XLSX.read(bstr, { type: 'binary' });
@@ -35,20 +29,19 @@ export const handleFileChange = (e: any, tableData: any, setTableData: any, setI
     const fileData = XLSX.utils.sheet_to_json(workSheet, { header: 1 });
     //const headers = fileData[0];
     fileData.splice(0, 1);
-    if (showFileSubmissionModal(fileData)) {
-      convertListToEvent(fileData, tableData, setTableData);
-    }
+    setDisplaySaveModal(true);
+    setFileData(fileData);
   };
 
   reader.readAsBinaryString(file);
-  setIsDataChanged(true);
 };
 
-export const handleSaveFileChanges = (tableData: any, setIsDataChanged: any) => {
+export const handleSaveFileChanges = (newGuestsList: any, setTableData: any) => {
   /* Add Logic for POST request */
   console.log('Mocking POST request...');
-  console.log(tableData);
-  setIsDataChanged(false);
+  console.log(newGuestsList);
+  /* If POST request is successful... */
+  setTableData(newGuestsList);
 };
 
 export const handleButtonClick = (inputRef: any) => {
