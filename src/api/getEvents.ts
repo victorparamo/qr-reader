@@ -1,5 +1,5 @@
 /* eslint-disable no-async-promise-executor */
-import { EventData } from 'pages/Dashboard/Dashboard';
+import { EventData } from 'pages/Dashboard/types';
 
 interface EventsResponse {
   Events: Array<EventData>;

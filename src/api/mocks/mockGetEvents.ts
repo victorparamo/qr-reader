@@ -1,4 +1,4 @@
-import { EventData } from 'pages/Dashboard/Dashboard';
+import { EventData } from 'pages/Dashboard/types';
 
 function createData({ Name, Date, GuestsNum, Id }: EventData) {
   return { Name, Date, GuestsNum, Id };

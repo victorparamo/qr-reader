@@ -4,8 +4,11 @@ type QRValidatorStatus = 'validated' | 'error';
 
 export interface QRData {
   status: QRValidatorStatus;
-  code: string;
-  name: string;
+  Name: string;
+  Phone: string;
+  GuestsNumber: string;
+  Table: string;
+  Id: string;
 }
 
 export interface QRValidator {
