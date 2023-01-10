@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 import getEvent, { EventResponse } from 'api/getEvent';
 import EventHeader from '~/components/EventHeader';
+import EventTable from '~/components/EventTable';
 import FileConfirmationModal from '~/components/FileConfirmationModal';
 import Loading from '~/components/Loading';
-
-import EventTable from './components/EventTable';
 
 const Event = (): JSX.Element => {
   const [dataFromCloud, setDataFromCloud] = useState<EventResponse>({
