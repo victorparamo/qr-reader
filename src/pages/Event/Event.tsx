@@ -3,9 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import getEvent, { EventResponse } from 'api/getEvent';
+import EventHeader from '~/components/EventHeader';
 import FileConfirmationModal from '~/components/FileConfirmationModal';
 
-import EventHeader from './components/EventHeader';
 import EventTable from './components/EventTable';
 import Loading from './components/Loading';
 
