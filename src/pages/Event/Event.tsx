@@ -1,12 +1,13 @@
-/* eslint-disable */
 import { useState, useEffect, useRef } from 'react';
-import Loading from './components/Loading';
-import EventHeader from './components/EventHeader';
+
 import { useNavigate } from 'react-router-dom';
 
 import getEvent, { EventResponse } from 'api/getEvent';
+import FileConfirmationModal from '~/components/FileConfirmationModal';
+
+import EventHeader from './components/EventHeader';
 import EventTable from './components/EventTable';
-import ConfirmSaveModal from './components/ConfirmSaveModal';
+import Loading from './components/Loading';
 
 const Event = (): JSX.Element => {
   const [dataFromCloud, setDataFromCloud] = useState<EventResponse>({
@@ -51,17 +52,15 @@ const Event = (): JSX.Element => {
         setDisplaySaveModal={setDisplaySaveModal}
         setFileData={setFileData}
       />
-      <ConfirmSaveModal
+      <FileConfirmationModal
         displayModal={displaySaveModal}
         setDisplaySaveModal={setDisplaySaveModal}
         hiddenFileInput={hiddenFileInput}
         guestList={fileData}
         tableData={tableData}
-        setTableData={setTableData} />
-      <EventTable
-        tableData={tableData}
         setTableData={setTableData}
       />
+      <EventTable tableData={tableData} setTableData={setTableData} />
     </>
   );
 };

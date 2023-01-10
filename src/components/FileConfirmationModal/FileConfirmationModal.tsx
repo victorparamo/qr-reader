@@ -3,8 +3,7 @@ import { Box } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import { convertListToEvent } from "../utils";
-
+import { convertListToEvent } from "./utils";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -18,7 +17,7 @@ const style = {
   p: 7,
 };
 
-const ConfirmSaveModal = (props: any): JSX.Element => {
+const FileConfirmationModal = (props: any): JSX.Element => {
   const { displayModal, setDisplaySaveModal, hiddenFileInput, guestList, tableData, setTableData } = props;
   const handleClose = () => {
     hiddenFileInput.current.value = '';
@@ -66,4 +65,4 @@ const ConfirmSaveModal = (props: any): JSX.Element => {
   )
 };
 
-export default ConfirmSaveModal;
+export default FileConfirmationModal;
