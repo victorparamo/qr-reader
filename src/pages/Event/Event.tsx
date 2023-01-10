@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
 import getEvent, { EventResponse } from 'api/getEvent';
 import EventHeader from 'components/EventHeader';
 import EventTable from 'components/EventTable';
@@ -26,7 +24,6 @@ const Event = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true);
   const [fileData, setFileData] = useState<any>();
   const [displaySaveModal, setDisplaySaveModal] = useState<boolean>(false);
-  const navigate = useNavigate();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -45,7 +42,6 @@ const Event = (): JSX.Element => {
   ) : (
     <>
       <EventHeader
-        navigate={navigate}
         dataFromCloud={dataFromCloud}
         hiddenFileInput={hiddenFileInput}
         setDisplaySaveModal={setDisplaySaveModal}

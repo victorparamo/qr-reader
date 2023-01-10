@@ -1,20 +1,17 @@
-/* eslint-disable */
+import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import AddIcon from '@mui/icons-material/Add';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
-import { handleFileChange, handleButtonClick } from './utils';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
+
+import { handleFileChange, handleButtonClick } from './utils';
 
 const EventHeader = (props: any): JSX.Element => {
-  const {
-    navigate,
-    dataFromCloud,
-    hiddenFileInput,
-    setDisplaySaveModal,
-    setFileData,
-  } = props;
+  const navigate = useNavigate();
+  const { dataFromCloud, hiddenFileInput, setDisplaySaveModal, setFileData } =
+    props;
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
       <ArrowBackIosNewIcon

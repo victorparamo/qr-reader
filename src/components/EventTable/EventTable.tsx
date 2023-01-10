@@ -1,8 +1,9 @@
-/* eslint-disable */
+import { useState } from 'react';
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import { Box } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
+import { Box } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -12,70 +13,75 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
 
 const EventTable = (props: any): JSX.Element => {
   const { tableData, setTableData } = props;
   const [isNameSorted, setIsNameSorted] = useState<boolean>(true);
   const [isGuestsSorted, setIsGuestsSorted] = useState<boolean>(true);
   const [isGuestTableSorted, setIsGuestTableSorted] = useState<boolean>(true);
-  const [filterKey, setFilterKey] = useState<string>("");
+  const [filterKey, setFilterKey] = useState<string>('');
 
-  const sortTableByString = (filterString: any, isSorted: boolean, setIsSorted: any) => {
+  const sortTableByString = (
+    filterString: any,
+    isSorted: boolean,
+    setIsSorted: any
+  ) => {
     if (isSorted) {
-      const newData = tableData
+      const newData = tableData;
       const sorted = [...tableData.guests].sort((a: any, b: any) => {
         if (a[filterString].toLowerCase() > b[filterString].toLowerCase()) {
-          return 1
+          return 1;
         } else {
-          return -1
+          return -1;
         }
       });
       newData.guests = sorted;
       setTableData(newData);
-    }
-    else {
-      const newData = tableData
+    } else {
+      const newData = tableData;
       const sorted = [...tableData.guests].sort((a: any, b: any) => {
         if (a[filterString].toLowerCase() < b[filterString].toLowerCase()) {
-          return 1
+          return 1;
         } else {
-          return -1
+          return -1;
         }
       });
       newData.guests = sorted;
       setTableData(newData);
     }
     setIsSorted(!isSorted);
-  }
+  };
 
-  const sortTableByNumber = (filterString: any, isSorted: boolean, setIsSorted: any) => {
+  const sortTableByNumber = (
+    filterString: any,
+    isSorted: boolean,
+    setIsSorted: any
+  ) => {
     if (isSorted) {
-      const newData = tableData
+      const newData = tableData;
       const sorted = [...tableData.guests].sort((a: any, b: any) => {
         if (a[filterString] > b[filterString]) {
-          return 1
+          return 1;
         } else {
-          return -1
+          return -1;
         }
       });
       newData.guests = sorted;
       setTableData(newData);
-    }
-    else {
-      const newData = tableData
+    } else {
+      const newData = tableData;
       const sorted = [...tableData.guests].sort((a: any, b: any) => {
         if (a[filterString] < b[filterString]) {
-          return 1
+          return 1;
         } else {
-          return -1
+          return -1;
         }
       });
       newData.guests = sorted;
       setTableData(newData);
     }
     setIsSorted(!isSorted);
-  }
+  };
 
   const sortTable = (sortBy: string) => {
     switch (sortBy) {
@@ -91,17 +97,18 @@ const EventTable = (props: any): JSX.Element => {
       default:
         break;
     }
-
   };
 
-  const filterTableData = (tableData: any[]) => {
+  const filterTableData = (tableData: Array<any>) => {
     return tableData.filter((row: any) => {
-      return Object.values(row).some(s => ("" + s).toLowerCase().includes(("" + filterKey).toLowerCase()));
+      return Object.values(row).some((s) =>
+        ('' + s).toLowerCase().includes(('' + filterKey).toLowerCase())
+      );
     });
   };
 
   const handleClearClick = () => {
-    setFilterKey("");
+    setFilterKey('');
   };
 
   return (
@@ -118,11 +125,13 @@ const EventTable = (props: any): JSX.Element => {
             mb: 1,
             ml: 'auto',
           }}
-          onChange={(e) => { setFilterKey(e.target.value) }}
+          onChange={(e) => {
+            setFilterKey(e.target.value);
+          }}
           InputProps={{
             endAdornment: (
               <IconButton
-                sx={{ visibility: filterKey ? "visible" : "hidden" }}
+                sx={{ visibility: filterKey ? 'visible' : 'hidden' }}
                 onClick={handleClearClick}
               >
                 <ClearIcon />
@@ -139,104 +148,105 @@ const EventTable = (props: any): JSX.Element => {
                 onClick={() => sortTable('name')}
                 sx={{
                   color: 'white',
-                  "&:hover": {
-                    cursor: 'pointer'
-                  }
+                  '&:hover': {
+                    cursor: 'pointer',
+                  },
                 }}
               >
                 Nombre invitado
-                {isNameSorted ?
+                {isNameSorted ? (
                   <ArrowDropDownIcon
                     sx={{
                       ml: 2,
-                      transform: 'translate(0, 4px)'
+                      transform: 'translate(0, 4px)',
                     }}
-                  /> :
+                  />
+                ) : (
                   <ArrowDropUpIcon
                     sx={{
                       ml: 2,
-                      transform: 'translate(0, 4px)'
+                      transform: 'translate(0, 4px)',
                     }}
                   />
-
-                }
+                )}
               </TableCell>
               <TableCell
                 align="center"
                 onClick={() => sortTable('guests')}
                 sx={{
                   color: 'white',
-                  "&:hover": {
-                    cursor: 'pointer'
-                  }
+                  '&:hover': {
+                    cursor: 'pointer',
+                  },
                 }}
               >
                 Lugares
-                {isGuestsSorted ?
+                {isGuestsSorted ? (
                   <ArrowDropDownIcon
                     sx={{
                       ml: 2,
-                      transform: 'translate(0, 4px)'
+                      transform: 'translate(0, 4px)',
                     }}
-                  /> :
+                  />
+                ) : (
                   <ArrowDropUpIcon
                     sx={{
                       ml: 2,
-                      transform: 'translate(0, 4px)'
+                      transform: 'translate(0, 4px)',
                     }}
                   />
-
-                }
+                )}
               </TableCell>
               <TableCell
                 align="center"
                 onClick={() => sortTable('table')}
                 sx={{
                   color: 'white',
-                  "&:hover": {
-                    cursor: 'pointer'
-                  }
+                  '&:hover': {
+                    cursor: 'pointer',
+                  },
                 }}
               >
                 Mesa
-                {isGuestTableSorted ?
+                {isGuestTableSorted ? (
                   <ArrowDropDownIcon
                     sx={{
                       ml: 2,
-                      transform: 'translate(0, 4px)'
+                      transform: 'translate(0, 4px)',
                     }}
-                  /> :
+                  />
+                ) : (
                   <ArrowDropUpIcon
                     sx={{
                       ml: 2,
-                      transform: 'translate(0, 4px)'
+                      transform: 'translate(0, 4px)',
                     }}
                   />
-
-                }
+                )}
               </TableCell>
               {/* <TableCell>Acciones</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {filterTableData(tableData.guests).map((row: any, index: number) => (
-              <TableRow
-                key={index}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="center">{row.guests}</TableCell>
-                <TableCell align="center">{row.table}</TableCell>
-              </TableRow>
-            ))}
+            {filterTableData(tableData.guests).map(
+              (row: any, index: number) => (
+                <TableRow
+                  key={index}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="center">{row.guests}</TableCell>
+                  <TableCell align="center">{row.table}</TableCell>
+                </TableRow>
+              )
+            )}
           </TableBody>
         </Table>
       </TableContainer>
     </>
-
-  )
+  );
 };
 
 export default EventTable;
